@@ -3,6 +3,39 @@ import Swal from 'sweetalert2';
 export const LOGIN='LOGIN';
 export const LOGOUT='LOGOUT'
 
+export const putRegister=function(register){
+    return function (dispatch){
+        return fetch(`http://localhost:3001/auth/register`,{
+                method:'PUT',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(register)
+                }) 
+                .then((descarga)=> descarga.json())
+                .then((respuesta)=>{
+                    if(respuesta.status===true){
+                    Swal.fire({
+                        icon: "success",
+                        title: respuesta.message,
+                        showConfirmButton: true,
+                        heightAuto: false,
+                        timer: 3000,
+                      });
+                      return "si"
+                    // alert(respuesta.message)
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        title: respuesta.message,
+                        showConfirmButton: true,
+                        heightAuto: false,
+                        timer: 3000,
+                      });
+                }
+                })
+                .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+
 export const postRegister=function(register){
     return function (dispatch){
         return fetch(`http://localhost:3001/auth/register`,{
@@ -13,6 +46,7 @@ export const postRegister=function(register){
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
                     if(respuesta.status===true){
+                        localStorage.setItem('token',respuesta.token)
                     dispatch({
                         type:LOGIN,
                         payload:respuesta.user
@@ -50,8 +84,8 @@ export const postLogin=function(login){
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
                     console.log(respuesta.token)
-                    localStorage.setItem('token',respuesta.token)
                     if(respuesta.status===true){
+                        localStorage.setItem('token',respuesta.token)
                     dispatch({
                         type:LOGIN,
                         payload:respuesta.user
@@ -72,11 +106,45 @@ export const postLogin=function(login){
     }
 }
 
+export const postPassword=function(pass){
+    return function (dispatch){
+        return fetch(`http://localhost:3001/auth/mail`,{
+                method:'POST',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(pass)
+                })
+                .then((descarga)=> descarga.json())
+                .then((respuesta)=>{
+                    console.log(respuesta.token)
+                    if(respuesta.status===true){
+                        Swal.fire({
+                            icon: "success",
+                            title: respuesta.message,
+                            showConfirmButton: true,
+                            heightAuto: false,
+                            timer: 3000,
+                          });
+                    return "si"
+                    }
+                    else{
+                        Swal.fire({
+                            icon: "error",
+                            title: respuesta.message,
+                            showConfirmButton: true,
+                            heightAuto: false,
+                            timer: 3000,
+                          });
+                    }
+                })
+                .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+
 export const getLogin=function(){
     return function (dispatch){
         return fetch(`http://localhost:3001/auth/user`,{
                 method: "GET",
-                headers: {'content-type': 'application/json', Authorization: "Bearer " + localStorage.getItem("token")}
+                headers: {'content-type': 'application/json', Authorization: localStorage.getItem("token")}
                 })
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
