@@ -1,26 +1,38 @@
-import {LOGIN,LOGOUT} from './Actions'
+import {GETPETS, LOGIN,LOGOUT,DELETE} from './Actions'
 
 const initialState={  
-    Loged:false,
-    user:[]
+    loged:false,
+    user:[],
+    pets:[]
 
 }
 
 const RootReducer=(state=initialState,action)=>{
-    switch(action.type){         
+    switch(action.type){    
+        case DELETE:
+            var mantener=state.pets.filter(p=>p.id!==action.payload.id)
+            console.log("filtrado quedo con",mantener)
+            return{
+                ...state,
+                pets:mantener
+            }
         case LOGIN:
             return{
             ...state,
-            Loged:true,
-            user:[action.payload]
+            loged:true,
+            user:action.payload
             } 
         case LOGOUT:
             return{
                 ...state,
-                Loged:false,
+                loged:false,
                 user:[]
             } 
-        
+        case GETPETS:
+            return{
+                ...state,
+                pets:action.payload
+            }
         default: return state;
     }
 }

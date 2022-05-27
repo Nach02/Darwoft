@@ -2,6 +2,8 @@ import Swal from 'sweetalert2';
 
 export const LOGIN='LOGIN';
 export const LOGOUT='LOGOUT'
+export const GETPETS='GETPETS'
+export const DELETE="DELETE"
 
 export const putRegister=function(register){
     return function (dispatch){
@@ -83,7 +85,6 @@ export const postLogin=function(login){
                 })
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
-                    console.log(respuesta.token)
                     if(respuesta.status===true){
                         localStorage.setItem('token',respuesta.token)
                     dispatch({
@@ -115,7 +116,6 @@ export const postPassword=function(pass){
                 })
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
-                    console.log(respuesta.token)
                     if(respuesta.status===true){
                         Swal.fire({
                             icon: "success",
@@ -148,7 +148,6 @@ export const getLogin=function(){
                 })
                 .then((descarga)=> descarga.json())
                 .then((respuesta)=>{
-                    console.log(respuesta)
                     if(respuesta.status===true){
                     dispatch({
                         type:LOGIN,
@@ -157,6 +156,95 @@ export const getLogin=function(){
                     }
                 })
                 .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+
+export const getPets=function(info){
+    return function(dispatch){
+        return fetch(`http://localhost:3001/pets/${info}`,{
+        })
+        .then((descarga)=>descarga.json())
+        .then((respuesta)=>{
+            if(respuesta.status===true){
+                dispatch({
+                    type:GETPETS,
+                    payload:respuesta.data.pets
+                })
+                }
+        })
+        .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+export const addPets=function(info){
+    return function(dispatch){
+        return fetch(`http://localhost:3001/pets`,{
+            method:"POST",
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(info)
+        })
+        .then((descarga)=>descarga.json())
+        .then((respuesta)=>{
+            if(respuesta.status===true){
+                Swal.fire({
+                    icon: "success",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+            return "si"
+            }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+            }
+        })
+        .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+
+export const deletePets=function(info){
+    console.log("entrando a la actioncon:",info)
+    return function(dispatch){
+        return fetch(`http://localhost:3001/pets`,{
+            method:"DELETE",
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(info)
+        })
+        .then((descarga)=>descarga.json())
+        .then((respuesta)=>{            
+            if(respuesta.status===true){
+                console.log("despachando")
+                dispatch({
+                    type:DELETE,
+                    payload:info
+                });
+                Swal.fire({
+                    icon: "success",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+                  
+            return "si"
+            }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+            }
+        })
+        .catch((err)=>alert(`Ocurrio un error ${err}`))
     }
 }
 

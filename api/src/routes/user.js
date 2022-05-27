@@ -52,7 +52,7 @@ router.post('/mail',async (req,res)=>{
             Le recordamos su Nickname: ${user.name}
         `
     }
-    const enviado=await transporter.sendMail(mail,(error,info)=>{
+    transporter.sendMail(mail,(error,info)=>{
         if(error) return  res.json({status:false,message:'no se pudo enviar el email', error})
         res.json({status:true,message:'el email se envio correctamente'})
     })
@@ -100,7 +100,6 @@ router.post('/register',async(req,res)=>{
 
 router.put('/register',async(req,res)=>{
     const {id,name,newId}=req.body;
-    console.log(req.body)
 
     if(!name||!id||!newId) return res.json({status:false,message:'falta informacion'})
 

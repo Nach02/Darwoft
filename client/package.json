@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "sweetalert2": "^11.4.8",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
-    "web-vitals": "^0.2.4",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.0",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "sweetalert2": "^11.4.8",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -7,7 +7,6 @@ function PassReset(props){
     const dispatch=useDispatch()
     const history=useHistory()
     const id=props.match.params.id
-    console.log(props.match.params)
     const [register,setRegister]=useState({
         name:"",
         id:id,

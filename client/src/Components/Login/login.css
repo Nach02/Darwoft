@@ -1,0 +1,6 @@
+.loginForm{
+    z-index: 2;
+    position: absolute;
+    top:15rem;
+    left:40%
+}
