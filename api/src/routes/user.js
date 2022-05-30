@@ -5,7 +5,6 @@ const { Users } = require('../db.js')
 const jwt=require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const nodemailer= require('nodemailer');
-const common = require('mocha/lib/interfaces/common');
 
 function verifyToken(req,res,next){
     const Header=req.headers['authorization']
@@ -54,7 +53,7 @@ router.post('/mail',async (req,res)=>{
     }
     transporter.sendMail(mail,(error,info)=>{
         if(error) return  res.json({status:false,message:'no se pudo enviar el email', error})
-        res.json({status:true,message:'el email se envio correctamente'})
+        res.json({status:true,message:'el email fue enviado correctamente'})
     })
 
 })
