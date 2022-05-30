@@ -13,7 +13,6 @@ function UserPage(){
         if(!state.loged) return history.push('/')
         dispatch(getPets(state.user.email))
     }, []);
-    console.log(state.pets)
     return(
         <div>
             {state.pets[0]===undefined?(
@@ -22,13 +21,13 @@ function UserPage(){
                 <NavLink to='/user/newpet'>Add your first pet</NavLink>
             </div>
             ):(
-            state.pets.map(p=>(
-                <PetCard key={p.id} name={p.name} id={p.id}/>
-            ))
-            )}
+                <div>
+            {state.pets.map(p=>(
+                <PetCard key={p.id} pet={p} id={p.id}/>
+            ))}
             <NavLink to='/user/newpet'>Add a new pet</NavLink>
-            
-            este es la pagina del perfil
+            </div>
+            )}
             <button style={{marginLeft:"20px"}}><NavLink to="/">Back Home</NavLink></button>
         </div>
     )

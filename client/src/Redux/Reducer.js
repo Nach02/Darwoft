@@ -11,7 +11,6 @@ const RootReducer=(state=initialState,action)=>{
     switch(action.type){    
         case DELETE:
             var mantener=state.pets.filter(p=>p.id!==action.payload.id)
-            console.log("filtrado quedo con",mantener)
             return{
                 ...state,
                 pets:mantener

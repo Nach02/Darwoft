@@ -1,0 +1,54 @@
+.nombre{
+    display: flex;
+    justify-content: space-evenly;
+    border: solid black 2px;
+    border-radius: 10px;
+    width: 350px;
+}
+.top{
+    display: flex;
+    justify-content: space-around;
+    background-color: blue;
+}
+.info{
+    /* border: solid grey 2px; */
+    border-radius: 5px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+    height: 0px;
+}
+.visible{
+    height: 0px;
+    border:0px
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.primera{
+    display: flex;
+    justify-content: space-around;
+}
+.segunda{
+    display: flex;
+    justify-content: space-around;
+}
+.no-photo{
+    border: dashed grey 5px;
+    padding-top: 33px;
+}
+.logo{
+    height: 50px;
+    width: 50px;
+}
+.botones{
+    display: flex;
+    justify-content: space-around;
+}
+.esconder{
+    cursor: pointer;
+}

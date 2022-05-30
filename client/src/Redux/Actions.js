@@ -176,7 +176,7 @@ export const getPets=function(info){
     }
 }
 export const addPets=function(info){
-    return function(dispatch){
+    return function(){
         return fetch(`http://localhost:3001/pets`,{
             method:"POST",
             headers:{'Content-Type': 'application/json'},
@@ -208,8 +208,40 @@ export const addPets=function(info){
     }
 }
 
+export const upDatePets=function(info){
+    return function(){
+        return fetch(`http://localhost:3001/pets`,{
+            method:"PUT",
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(info)
+        })
+        .then((descarga)=>descarga.json())
+        .then((respuesta)=>{
+            if(respuesta.status===true){
+                Swal.fire({
+                    icon: "success",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+            return "si"
+            }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: respuesta.message,
+                    showConfirmButton: true,
+                    heightAuto: false,
+                    timer: 3000,
+                  });
+            }
+        })
+        .catch((err)=>alert(`Ocurrio un error ${err}`))
+    }
+}
+
 export const deletePets=function(info){
-    console.log("entrando a la actioncon:",info)
     return function(dispatch){
         return fetch(`http://localhost:3001/pets`,{
             method:"DELETE",
@@ -219,7 +251,6 @@ export const deletePets=function(info){
         .then((descarga)=>descarga.json())
         .then((respuesta)=>{            
             if(respuesta.status===true){
-                console.log("despachando")
                 dispatch({
                     type:DELETE,
                     payload:info

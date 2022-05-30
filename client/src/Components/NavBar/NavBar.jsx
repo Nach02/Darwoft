@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import './NavBar.css'
 import { getLogin, deleteToken } from "../../Redux/Actions";
@@ -12,6 +12,7 @@ import clock from '../../img/clock.png'
 function NavBar(){
     const state=useSelector((state)=>state)
     const dispatch=useDispatch()
+    const history=useHistory()
     useEffect(() => {
         if(!state.loged){
             dispatch(getLogin())
@@ -20,6 +21,8 @@ function NavBar(){
 
     function logOut(){
         dispatch(deleteToken())
+        history.push('/')
+
     }
 
 
